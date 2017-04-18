@@ -65,7 +65,7 @@ public class StartupMenu extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(StartupMenu.this, PhaseoutActivity.class));
                 break;
             case R.id.suddenPhase:
-                startActivity(new Intent(StartupMenu.this, PlayerTwoActivity.class));
+                startActivity(new Intent(StartupMenu.this, SuddenPhaseActivity.class));
                 break;
             case R.id.categories:
                 startActivity(new Intent(StartupMenu.this, ProxyActivity.class));
