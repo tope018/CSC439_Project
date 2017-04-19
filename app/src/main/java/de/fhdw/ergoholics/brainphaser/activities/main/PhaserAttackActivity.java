@@ -16,6 +16,7 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
 
     //define widget variables
     private TextView timerText;
+    private TextView instruction;
     private Button buttonOne;
     private Button buttonTwo;
     private Button buttonThree;
@@ -70,6 +71,7 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
         startButton = (Button) findViewById(R.id.startButton);
         titleText = (TextView) findViewById(R.id.title);
         timerText = (TextView) findViewById(R.id.timerText);
+        instruction = (TextView) findViewById(R.id.instruction);
 
         //set onClick listener for buttons
         buttonOne.setOnClickListener(this);
@@ -125,6 +127,7 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
         buttonThree.setVisibility(View.VISIBLE);
         buttonFour.setVisibility(View.VISIBLE);
         questionText.setVisibility(View.VISIBLE);
+        instruction.setVisibility(View.INVISIBLE);
         titleText.setVisibility(View.INVISIBLE);
         buttonOne.setText(buttonOneArray[0]);
         buttonTwo.setText(buttonTwoArray[0]);
