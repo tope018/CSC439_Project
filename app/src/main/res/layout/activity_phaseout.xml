@@ -53,7 +53,7 @@
 
         <Button
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="0dip"
             android:id="@+id/buttonA"
             android:background="@drawable/multiple_choice_toggle"
@@ -61,7 +61,7 @@
             android:visibility="invisible"/>
         <Button
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="0dip"
             android:id="@+id/buttonB"
             android:background="@drawable/multiple_choice_toggle"
@@ -78,7 +78,7 @@
 
         <Button
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="0dip"
             android:id="@+id/buttonC"
             android:background="@drawable/multiple_choice_toggle"
@@ -86,7 +86,7 @@
             android:visibility="invisible"/>
         <Button
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="0dip"
             android:id="@+id/buttonD"
             android:background="@drawable/multiple_choice_toggle"
