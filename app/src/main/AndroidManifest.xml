@@ -103,7 +103,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.main.MainActivity"/>
         </activity>
-        <activity android:name=".activities.main.PlayerTwoActivity"
+        <activity android:name=".activities.main.SuddenPhaseActivity"
             android:label="PlayerTwoActivity"></activity>
         <activity android:name=".activities.main.StartupMenu"
             android:label="BrainPhaser">
@@ -113,5 +113,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.main.PhaseoutActivity"></activity>
+        <activity android:name=".activities.main.PhaserAttackActivity"></activity>
     </application>
 </manifest>

@@ -4,7 +4,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.main.PlayerTwoActivity">
+    tools:context=".activities.main.SuddenPhaseActivity">
+
+    <include layout="@layout/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <include layout="@layout/top_labels"
         android:layout_width="match_parent"

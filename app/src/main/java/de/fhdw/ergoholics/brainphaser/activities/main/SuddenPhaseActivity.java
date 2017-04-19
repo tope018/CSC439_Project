@@ -8,13 +8,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
-
 import de.fhdw.ergoholics.brainphaser.R;
 
-public class PlayerTwoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class SuddenPhaseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     //define variables for the widgets
     private Button buttonOne;
@@ -61,7 +57,7 @@ public class PlayerTwoActivity extends AppCompatActivity implements AdapterView.
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_two_player);
+        setContentView(R.layout.activity_sudden_phase);
 
         //get references to the widgets
         buttonOne = (Button) findViewById(R.id.buttonOne);
