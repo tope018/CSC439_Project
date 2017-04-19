@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.main.PhaseoutActivity">
+    tools:context=".activities.main.SuddenPhaseActivity">
 
     <include layout="@layout/appbar_layout"
         android:layout_width="match_parent"
@@ -26,13 +26,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/instruction"
-            android:text="@string/instructionPhaseout"
+            android:text="@string/instructionSuddenPhase"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/multiplechoice_button"
             android:gravity="center_horizontal"
             android:layout_marginBottom="-25dp"
             android:layout_marginTop="25dp"/>
-
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -43,6 +42,31 @@
             android:gravity="center_horizontal"
             android:visibility="invisible"
             android:layout_marginBottom="15dp"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dip"
+            android:id="@+id/buttonOne"
+            android:background="@drawable/multiple_choice_toggle"
+            android:textColor="@color/multiplechoice_button"
+            android:visibility="invisible"/>
+        <Button
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dip"
+            android:id="@+id/buttonTwo"
+            android:background="@drawable/multiple_choice_toggle"
+            android:textColor="@color/multiplechoice_button"
+            android:visibility="invisible"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -55,7 +79,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="0dip"
-            android:id="@+id/buttonA"
+            android:id="@+id/buttonThree"
             android:background="@drawable/multiple_choice_toggle"
             android:textColor="@color/multiplechoice_button"
             android:visibility="invisible"/>
@@ -63,32 +87,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="0dip"
-            android:id="@+id/buttonB"
-            android:background="@drawable/multiple_choice_toggle"
-            android:textColor="@color/multiplechoice_button"
-            android:visibility="invisible"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="0dip"
-            android:id="@+id/buttonC"
-            android:background="@drawable/multiple_choice_toggle"
-            android:textColor="@color/multiplechoice_button"
-            android:visibility="invisible"/>
-        <Button
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="0dip"
-            android:id="@+id/buttonD"
+            android:id="@+id/buttonFour"
             android:background="@drawable/multiple_choice_toggle"
             android:textColor="@color/multiplechoice_button"
             android:visibility="invisible"/>
@@ -98,8 +97,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/phaseoutMode"
-        android:text="@string/gameMode"
+        android:id="@+id/title"
+        android:text="@string/titleText"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:paddingBottom="10dp"
@@ -108,8 +107,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/phaseCountTextView"
-        android:text="@string/phaseText"
+        android:id="@+id/playerTurnTextView"
+        android:text="@string/PlayerTurnText"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/multiplechoice_button"
         android:gravity="center"

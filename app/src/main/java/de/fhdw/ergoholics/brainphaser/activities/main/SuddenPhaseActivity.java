@@ -8,13 +8,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
-
 import de.fhdw.ergoholics.brainphaser.R;
 
-public class PlayerTwoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class SuddenPhaseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     //define variables for the widgets
     private Button buttonOne;
@@ -25,6 +21,7 @@ public class PlayerTwoActivity extends AppCompatActivity implements AdapterView.
     private TextView questionText;
     private Button startButton;
     private TextView titleText;
+    private TextView instruction;
 
     //define questions and answers in separate arrays - will replace with xml parser methods
     String[] questionArray = new String[]{"Which president is on the United States 1,000 dollar bill?",
@@ -60,7 +57,7 @@ public class PlayerTwoActivity extends AppCompatActivity implements AdapterView.
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_two_player);
+        setContentView(R.layout.activity_sudden_phase);
 
         //get references to the widgets
         buttonOne = (Button) findViewById(R.id.buttonOne);
@@ -71,6 +68,8 @@ public class PlayerTwoActivity extends AppCompatActivity implements AdapterView.
         questionText = (TextView) findViewById(R.id.questionText);
         startButton = (Button) findViewById(R.id.startButton);
         titleText = (TextView) findViewById(R.id.title);
+
+        instruction = (TextView) findViewById(R.id.instruction);
 
         //set onClick listener for buttons
         buttonOne.setOnClickListener(this);
@@ -175,6 +174,7 @@ public class PlayerTwoActivity extends AppCompatActivity implements AdapterView.
         buttonFour.setVisibility(View.VISIBLE);
         playerTurnText.setVisibility(View.VISIBLE);
         questionText.setVisibility(View.VISIBLE);
+        instruction.setVisibility(View.INVISIBLE);
         titleText.setVisibility(View.INVISIBLE);
         buttonOne.setText(buttonOneArray[0]);
         buttonTwo.setText(buttonTwoArray[0]);
