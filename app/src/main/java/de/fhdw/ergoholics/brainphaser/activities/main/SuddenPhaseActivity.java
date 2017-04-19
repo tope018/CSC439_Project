@@ -24,20 +24,141 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
     private TextView instruction;
 
     //define questions and answers in separate arrays - will replace with xml parser methods
-    String[] questionArray = new String[]{"Which president is on the United States 1,000 dollar bill?",
+    String[] questionArray = new String[] {
+            "What more can I do? All I want _________ is you.",
+            "Every Day is a winding road. ________",
+            "If I don't get some shelter, Lord, I'm gonna fade away. War, children ________",
+            "Billie Jean is not my lover. ________ who claims that I am the one.",
+            "If you wanna be my lover you _________ Make it last forever. Friendship never ends.",
+            "Since you been gone, I can ________",
+            "Don't go _________ Just stick to the rivers and the lakes that you're used to",
+            "Which president is on the United States 1,000 dollar bill?",
             "What building is found on the back of the United States 100 dollar bill?",
             "What year was the two dollar bill last printed in the United States?",
             "What is the spanish word for money?",
             "What is the official currency of Equador?",
-            "How much does a United States dollar bill weigh?"};
-    String[] buttonOneArray = new String[] {"Grover Cleveland","Lincoln Memorial","2000","peso","Pound","1.5 Grams"};
-    String[] buttonTwoArray = new String[] {"Abraham Lincoln","Independence Hall","1998","dinero","Euro","1 Gram"};
-    String[] buttonThreeArray = new String[] {"Thomas Jefferson","White House","2003","dinner","Peso","2 Grams"};
-    String[] buttonFourArray = new String[] {"Jimmy Carter","Twin Towers","1996","deeniro","United States Dollar","0.5 Grams"};
-    boolean[] buttonOneAnswer = new boolean[] {true,false,false,false,false,false};
-    boolean[] buttonTwoAnswer = new boolean[] {false,true,false,true,false,true};
-    boolean[] buttonThreeAnswer = new boolean[] {false,false,true,false,false,false};
-    boolean[] buttonFourAnswer = new boolean[] {false,false,false,false,true,false};
+            "How much does a United States dollar bill weigh?"
+    };
+    String[] buttonOneArray = new String[] {
+            "for the spring sale",
+            "It gets a further away",
+            "It's a trap. It's a trap.",
+            "She just don't know",
+            "gotta meet my family",
+            "do whatever I want",
+            "chasing waterfalls",
+            "Grover Cleveland",
+            "Lincoln Memorial",
+            "2000",
+            "peso",
+            "Pound",
+            "1.5 Grams"
+    };
+    String[] buttonTwoArray = new String[] {
+            "for New Year's",
+            "I get a little bit closer",
+            "It's so cold and dark. It's so cold and dark",
+            "She's a cleaning lady",
+            "have to buy me a pizza.",
+            "breathe for the first time",
+            "chasing cars.",
+            "Abraham Lincoln",
+            "Independence Hall",
+            "1998",
+            "dinero",
+            "Euro",
+            "1 Gram"
+    };
+    String[] buttonThreeArray = new String[] {
+            "for Christmas",
+            "I keep drifting away",
+            "It's just a shot away. It's just a shot away",
+            "I know this girl",
+            "gotta get with my friends.",
+            "have tons of parties",
+            "chasing pavements",
+            "Thomas Jefferson",
+            "White House",
+            "2003",
+            "dinner",
+            "Peso",
+            "2 Grams"
+    };
+    String[] buttonFourArray = new String[] {
+            "for Halloween",
+            "I feel a little bit safer",
+            "Brother help me please. Brother help me please",
+            "She's just a girl",
+            "gotta fly me to France.",
+            "leave all the memories behind",
+            "chasing dreams",
+            "Jimmy Carter",
+            "Twin Towers",
+            "1996",
+            "deeniro",
+            "United States Dollar",
+            "0.5 Grams"
+    };
+    boolean[] buttonOneAnswer = new boolean[] {
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false
+    };
+    boolean[] buttonTwoAnswer = new boolean[] {
+            false,
+            true,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            true,
+            false,
+            true,
+            false,
+            true
+    };
+    boolean[] buttonThreeAnswer = new boolean[] {
+            true,
+            false,
+            true,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false
+    };
+    boolean[] buttonFourAnswer = new boolean[] {
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false
+    };
     int arrayValue = 0;
     boolean playerOneBoolean = true;
 
@@ -167,6 +288,7 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
         }
     }
 
+    //set layout for a new game of sudden phase
     public void displayStart() {
         buttonOne.setVisibility(View.VISIBLE);
         buttonTwo.setVisibility(View.VISIBLE);
@@ -187,6 +309,7 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
         startButton.setText("New Game");
     }
 
+    //display the next question
     public void displayNext() {
         buttonOne.setText(buttonOneArray[arrayValue]);
         buttonTwo.setText(buttonTwoArray[arrayValue]);
@@ -199,6 +322,7 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
             playerTurnText.setText("Player Two's Turn");
     }
 
+    //check if answer is correct, incorrect, or game ended in a tie
     public boolean checkAnswer(boolean[] array) {
         if (!array[arrayValue]) {
             displayWinner(playerOneBoolean);
@@ -219,6 +343,7 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
         return false;
     }
 
+    //ends the game and displays the winner
     public void displayWinner(boolean player) {
         if (!playerOneBoolean) {
             playerTurnText.setText("Player One Wins!!!");
