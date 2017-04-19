@@ -33,7 +33,6 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
 
     ArrayList<ChallengeQuestion> list = new ArrayList<ChallengeQuestion>();
 
-
     String[] questionArray = new String[] {
             "What more can I do? All I want _________ is you.",
             "Every Day is a winding road. ________",
@@ -270,6 +269,7 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
 
     //Set up screen for a new game
     public void displayStart() {
+        //set visibility of buttons
         buttonOne.setVisibility(View.VISIBLE);
         buttonTwo.setVisibility(View.VISIBLE);
         buttonThree.setVisibility(View.VISIBLE);
@@ -277,7 +277,11 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
         questionText.setVisibility(View.VISIBLE);
         instruction.setVisibility(View.INVISIBLE);
         titleText.setVisibility(View.INVISIBLE);
+
+        //randomize array list
         shuffleArray(list);
+
+        //set buttons to first question
         buttonOne.setText(list.get(0).getButtonOneAnswer());
         buttonTwo.setText(list.get(0).getButtonTwoAnswer());
         buttonThree.setText(list.get(0).getButtonThreeAnswer());
