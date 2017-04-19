@@ -1,6 +1,8 @@
 package de.fhdw.ergoholics.brainphaser.activities.main;
 
 import de.fhdw.ergoholics.brainphaser.R;
+import de.fhdw.ergoholics.brainphaser.utility.ChallengeQuestion;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class PhaseoutActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -47,6 +52,9 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
     boolean questionsExhausted = false;
 
     //define questions and answers in separate arrays - will replace with xml parser methods
+
+    ArrayList<ChallengeQuestion> list = new ArrayList<ChallengeQuestion>();
+
     String[] questionArray = new String[] {
             "What more can I do? All I want _________ is you.",
             "Every Day is a winding road. ________",
@@ -206,6 +214,23 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
         buttonD.setOnClickListener(this);
 
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
+
+        //Create question arrayList
+        for (int i = 0; i < questionArray.length; i++) {
+            ChallengeQuestion question = new ChallengeQuestion();
+            question.setQuestion(questionArray[i]);
+            question.setButtonOneAnswer(buttonOneArray[i]);
+            question.setButtonOneBoolean(buttonOneAnswer[i]);
+            question.setButtonTwoAnswer(buttonTwoArray[i]);
+            question.setButtonTwoBoolean(buttonTwoAnswer[i]);
+            question.setButtonThreeAnswer(buttonThreeArray[i]);
+            question.setButtonThreeBoolean(buttonThreeAnswer[i]);
+            question.setButtonFourAnswer(buttonFourArray[i]);
+            question.setButtonFourBoolean(buttonFourAnswer[i]);
+            list.add(question);
+        }
+
+        shuffleArray(list);
     }
 
     @Override
@@ -273,7 +298,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
                 break;
             // Check answers; check for end of game or advance question
             case R.id.buttonA:
-                checkAnswer(buttonOneAnswer);
+                checkAnswer(list, "buttonOne");
                 if (phasesExhausted() || questionsExhausted) {
                     endGame();
                     break;
@@ -282,7 +307,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
                 displayNext();
                 break;
             case R.id.buttonB:
-                checkAnswer(buttonTwoAnswer);
+                checkAnswer(list, "buttonTwo");
                 if (phasesExhausted() || questionsExhausted) {
                     endGame();
                     break;
@@ -291,7 +316,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
                 displayNext();
                 break;
             case R.id.buttonC:
-                checkAnswer(buttonThreeAnswer);
+                checkAnswer(list, "buttonThree");
                 if (phasesExhausted() || questionsExhausted) {
                     endGame();
                     break;
@@ -300,7 +325,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
                 displayNext();
                 break;
             case R.id.buttonD:
-                checkAnswer(buttonFourAnswer);
+                checkAnswer(list, "buttonFour");
                 if (phasesExhausted() || questionsExhausted) {
                     endGame();
                     break;
@@ -323,14 +348,17 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
         buttonC.setVisibility(View.VISIBLE);
         buttonD.setVisibility(View.VISIBLE);
 
+        //randomize array list
+        shuffleArray(list);
+
         // Widget text updated
         startButton.setText("New Game");
-        questionText.setText(questionArray[0]);
+        questionText.setText(list.get(0).getQuestion());
         phaseCountText.setText("Phases Incurred: 0");
-        buttonA.setText(buttonOneArray[0]);
-        buttonB.setText(buttonTwoArray[0]);
-        buttonC.setText(buttonThreeArray[0]);
-        buttonD.setText(buttonFourArray[0]);
+        buttonA.setText(list.get(0).getButtonOneAnswer());
+        buttonB.setText(list.get(0).getButtonTwoAnswer());
+        buttonC.setText(list.get(0).getButtonThreeAnswer());
+        buttonD.setText(list.get(0).getButtonFourAnswer());
 
         //Counters set to default
         resetValues();
@@ -339,25 +367,59 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
     // Present next question
     public void displayNext() {
         // Question, answer options, and phase count display updated
-        questionText.setText(questionArray[arrayValue]);
+        questionText.setText(list.get(arrayValue).getQuestion());
         phaseCountText.setText("Phases Incurred: " + phaseCount);
-        buttonA.setText(buttonOneArray[arrayValue]);
-        buttonB.setText(buttonTwoArray[arrayValue]);
-        buttonC.setText(buttonThreeArray[arrayValue]);
-        buttonD.setText(buttonFourArray[arrayValue]);
+        buttonA.setText(list.get(arrayValue).getButtonOneAnswer());
+        buttonB.setText(list.get(arrayValue).getButtonTwoAnswer());
+        buttonC.setText(list.get(arrayValue).getButtonThreeAnswer());
+        buttonD.setText(list.get(arrayValue).getButtonFourAnswer());
 
         // Question total updated
         qCount++;
     }
 
     // Update game counters
-    public void checkAnswer(boolean[] array) {
+    public void checkAnswer(ArrayList<ChallengeQuestion> array, String string) {
         // Incorrect answer records phase, correct answer adds to correct total
-        if (!array[arrayValue])
-            phaseCount++;
-        else
-            correctQCount++;
-        questionsExhausted(array);
+        switch (string) {
+            case "buttonOne":
+                if (!array.get(arrayValue).isButtonOneBoolean()) {
+                    phaseCount++;
+                    break;
+                }
+                else {
+                    correctQCount++;
+                    break;
+                }
+            case "buttonTwo":
+                if (!array.get(arrayValue).isButtonTwoBoolean()) {
+                    phaseCount++;
+                    break;
+                }
+                else {
+                    correctQCount++;
+                    break;
+                }
+            case "buttonThree":
+                if (!array.get(arrayValue).isButtonThreeBoolean()) {
+                    phaseCount++;
+                    break;
+                }
+                else {
+                    correctQCount++;
+                    break;
+                }
+            case "buttonFour":
+                if (!array.get(arrayValue).isButtonFourBoolean()) {
+                    phaseCount++;
+                    break;
+                }
+                else {
+                    correctQCount++;
+                    break;
+                }
+        }
+        questionsExhausted();
     }
 
     // Check for third phase/strike
@@ -368,8 +430,8 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
     }
 
     // Determine if current question is last in category
-    public void questionsExhausted(boolean[] array) {
-        if (array.length - 1 == arrayValue)
+    public void questionsExhausted() {
+        if (questionArray.length - 1 == arrayValue)
             questionsExhausted = true;
     }
 
@@ -399,5 +461,20 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
         phaseCount = 0;
         correctQCount = 0;
         questionsExhausted = false;
+    }
+
+    //Randomized the question array list
+    private static void shuffleArray(ArrayList<ChallengeQuestion> array)
+    {
+        int index;
+        ChallengeQuestion temp;
+        Random random = new Random();
+        for (int i = array.size() - 1; i > 0; i--)
+        {
+            index = random.nextInt(i + 1);
+            temp = array.get(i);
+            array.set(i, array.get(index));
+            array.set(index, temp);
+        }
     }
 }
