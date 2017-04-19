@@ -19,11 +19,12 @@
         android:layout_marginRight="16dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timerText"
-        android:width="50dp"
-        android:height="50dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:id="@+id/timerText" />
 
     <TextView
     android:layout_width="match_parent"
@@ -33,7 +34,6 @@
     android:textSize="@dimen/questionTextSize"
     android:gravity="center_horizontal"
     android:layout_marginBottom="20dp"
-    android:layout_marginTop="50dp"
     android:visibility="invisible" />
 
     <LinearLayout
@@ -83,7 +83,7 @@
         android:text="@string/phaserAttack"
         android:gravity="center"
         android:textSize="30sp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="30dp"
         />
 
     <Button

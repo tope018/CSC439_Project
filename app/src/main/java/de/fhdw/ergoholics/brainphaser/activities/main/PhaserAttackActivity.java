@@ -40,6 +40,9 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
     boolean[] buttonThreeAnswer = new boolean[] {false,false,true,false,false,false};
     boolean[] buttonFourAnswer = new boolean[] {false,false,false,false,true,false};
     int arrayValue = 0;
+    int score = 0;
+    CountDownTimer Count;
+
 
     //define the SharedPreferences object
     private SharedPreferences savedValues;
@@ -51,7 +54,7 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
     private String buttonFourString = "";
     private String questionTextString = "";
     private int currentArrayValue = 0;
-    private int score = 0;
+    private int scoreValue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +118,7 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
         arrayValue = currentArrayValue;
     }
 
+    //Set up screen for a new game
     public void displayStart() {
         buttonOne.setVisibility(View.VISIBLE);
         buttonTwo.setVisibility(View.VISIBLE);
@@ -128,24 +132,38 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
         buttonFour.setText(buttonFourArray[0]);
         questionText.setText(questionArray[0]);
         arrayValue = 0;
+        score = 0;
         startButton.setText("New Game");
     }
 
+    //Displays next question
     public void displayNext() {
-        buttonOne.setText(buttonOneArray[arrayValue]);
-        buttonTwo.setText(buttonTwoArray[arrayValue]);
-        buttonThree.setText(buttonThreeArray[arrayValue]);
-        buttonFour.setText(buttonFourArray[arrayValue]);
-        questionText.setText(questionArray[arrayValue]);
+        if(arrayValue < questionArray.length) {
+            buttonOne.setText(buttonOneArray[arrayValue]);
+            buttonTwo.setText(buttonTwoArray[arrayValue]);
+            buttonThree.setText(buttonThreeArray[arrayValue]);
+            buttonFour.setText(buttonFourArray[arrayValue]);
+            questionText.setText(questionArray[arrayValue]);
+        }
+        else {
+            Count.cancel();
+            displayWinner();
+        }
     }
 
-    public boolean checkAnswer(boolean[] array) {
-        //endgame, incorrect answer
+    //Check if answer is correct
+    public void checkAnswer(boolean[] array) {
+        //Incorrect answer, go to next answer
         if (!array[arrayValue]) {
-            //TODO
-            return false;
+            arrayValue++;
+            displayNext();
         }
-        return true;
+        //Correct answer, increase score, array index, and move to next question
+        else {
+            score++;
+            arrayValue++;
+            displayNext();
+        }
     }
 
     //change to endgame view
@@ -155,21 +173,23 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
         buttonTwo.setVisibility(View.INVISIBLE);
         buttonThree.setVisibility(View.INVISIBLE);
         buttonFour.setVisibility(View.INVISIBLE);
-        questionText.setVisibility(View.INVISIBLE);
+        questionText.setText("Score:  " + score);
         titleText.setVisibility(View.INVISIBLE);
+        timerText.setText("Game Over!");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.startButton:
-                CountDownTimer Count = new CountDownTimer(30000, 1000) {
+                if(startButton.getText().toString().equals("New Game"))
+                    Count.cancel();
+                Count = new CountDownTimer(15000, 1000) {
                     public void onTick(long millisUntilFinished) {
                         timerText.setText("" + millisUntilFinished / 1000);
                     }
 
                     public void onFinish() {
-                        timerText.setText("Game Over!");
                         displayWinner();
                     }
                 };
@@ -178,45 +198,17 @@ public class PhaserAttackActivity extends AppCompatActivity implements View.OnCl
                 displayStart();
                 break;
             case R.id.buttonOne:
-                if(checkAnswer(buttonOneAnswer)) {
-                    arrayValue++;
-                    displayNext();
-                    break;
-                }
-                else {
-                    displayWinner();
-                    break;
-                }
+                checkAnswer(buttonOneAnswer);
+                break;
             case R.id.buttonTwo:
-                if(checkAnswer(buttonTwoAnswer)) {
-                    arrayValue++;
-                    displayNext();
-                    break;
-                }
-                else {
-                    displayWinner();
-                    break;
-                }
+                checkAnswer(buttonTwoAnswer);
+                break;
             case R.id.buttonThree:
-                if(checkAnswer(buttonThreeAnswer)) {
-                    arrayValue++;
-                    displayNext();
-                    break;
-                }
-                else {
-                    displayWinner();
-                    break;
-                }
+                checkAnswer(buttonThreeAnswer);
+                break;
             case R.id.buttonFour:
-                if(checkAnswer(buttonFourAnswer)) {
-                    arrayValue++;
-                    displayNext();
-                    break;
-                }
-                else {
-                    displayWinner();
-                    break;
-                }
+                checkAnswer(buttonFourAnswer);
+                break;
         }
     }
 }
