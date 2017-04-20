@@ -127,7 +127,9 @@
     <string name="trivia" translatable="false">Trivia Category</string>
     <string name="multi" translatable="false">Multi Choice</string>
     <string name="instructionPhaseout" translatable="false">Each incorrect answer incurs a phase.  3 phases ends the game - try to answer as many questions correctly as possible
-        without incurring 3 phases.</string>
-    <string name="instructionSuddenPhase" translatable="false">Two player sudden death game mode.  An incorrect answer will result in a win for opposing player.</string>
+        before getting 3 phases!</string>
+    <string name="instructionSuddenPhase" translatable="false">Two player sudden death game mode.  An incorrect answer will result in a win for the opposing player.  Try to
+        outlast your opponent!</string>
+    <string name="instructionPhaserAttack" translatable="false">Try to answer as many questions correctly as possible before the timer runs out!</string>
 
 </resources>

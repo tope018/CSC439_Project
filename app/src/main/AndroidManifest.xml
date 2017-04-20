@@ -104,7 +104,8 @@
                 android:value=".activities.main.MainActivity"/>
         </activity>
         <activity android:name=".activities.main.SuddenPhaseActivity"
-            android:label="PlayerTwoActivity"></activity>
+            android:screenOrientation="nosensor"
+            android:label="SuddenPhaseActivity"></activity>
         <activity android:name=".activities.main.StartupMenu"
             android:label="BrainPhaser">
             <intent-filter>
@@ -112,7 +113,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.main.PhaseoutActivity"></activity>
-        <activity android:name=".activities.main.PhaserAttackActivity"></activity>
+        <activity android:name=".activities.main.PhaseoutActivity"
+            android:screenOrientation="nosensor"></activity>
+        <activity android:name=".activities.main.PhaserAttackActivity"
+            android:screenOrientation="nosensor"></activity>
     </application>
 </manifest>

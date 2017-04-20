@@ -1,6 +1,8 @@
 package de.fhdw.ergoholics.brainphaser.activities.main;
 
 import de.fhdw.ergoholics.brainphaser.R;
+import de.fhdw.ergoholics.brainphaser.utility.ChallengeQuestion;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,13 +13,16 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class PhaseoutActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     // Widgets
     private Button startButton;
     private TextView questionText;
     private TextView gameMode;
-    private TextView instruction;          ////////////////
+    private TextView instruction;
     private TextView phaseCountText;
     private Button buttonA;
     private Button buttonB;
@@ -47,20 +52,144 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
     boolean questionsExhausted = false;
 
     //define questions and answers in separate arrays - will replace with xml parser methods
-    String[] questionArray = new String[]{"Which president is on the United States 1,000 dollar bill?",
+
+    ArrayList<ChallengeQuestion> list = new ArrayList<ChallengeQuestion>();
+
+    String[] questionArray = new String[] {
+            "What more can I do? All I want _________ is you.",
+            "Every Day is a winding road. ________",
+            "If I don't get some shelter, Lord, I'm gonna fade away. War, children ________",
+            "Billie Jean is not my lover. ________ who claims that I am the one.",
+            "If you wanna be my lover you _________ Make it last forever. Friendship never ends.",
+            "Since you been gone, I can ________",
+            "Don't go _________ Just stick to the rivers and the lakes that you're used to",
+            "Which president is on the United States 1,000 dollar bill?",
             "What building is found on the back of the United States 100 dollar bill?",
             "What year was the two dollar bill last printed in the United States?",
             "What is the spanish word for money?",
             "What is the official currency of Equador?",
-            "How much does a United States dollar bill weigh?"};
-    String[] buttonOneArray = new String[]{"Grover Cleveland", "Lincoln Memorial", "2000", "peso", "Pound", "1.5 Grams"};
-    String[] buttonTwoArray = new String[]{"Abraham Lincoln", "Independence Hall", "1998", "dinero", "Euro", "1 Gram"};
-    String[] buttonThreeArray = new String[]{"Thomas Jefferson", "White House", "2003", "dinner", "Peso", "2 Grams"};
-    String[] buttonFourArray = new String[]{"Jimmy Carter", "Twin Towers", "1996", "deeniro", "United States Dollar", "0.5 Grams"};
-    boolean[] buttonOneAnswer = new boolean[]{true, false, false, false, false, false};
-    boolean[] buttonTwoAnswer = new boolean[]{false, true, false, true, false, true};
-    boolean[] buttonThreeAnswer = new boolean[]{false, false, true, false, false, false};
-    boolean[] buttonFourAnswer = new boolean[]{false, false, false, false, true, false};
+            "How much does a United States dollar bill weigh?"
+    };
+    String[] buttonOneArray = new String[] {
+            "for the spring sale",
+            "It gets a further away",
+            "It's a trap. It's a trap.",
+            "She just don't know",
+            "gotta meet my family",
+            "do whatever I want",
+            "chasing waterfalls",
+            "Grover Cleveland",
+            "Lincoln Memorial",
+            "2000",
+            "peso",
+            "Pound",
+            "1.5 Grams"
+    };
+    String[] buttonTwoArray = new String[] {
+            "for New Year's",
+            "I get a little bit closer",
+            "It's so cold and dark. It's so cold and dark",
+            "She's a cleaning lady",
+            "have to buy me a pizza.",
+            "breathe for the first time",
+            "chasing cars.",
+            "Abraham Lincoln",
+            "Independence Hall",
+            "1998",
+            "dinero",
+            "Euro",
+            "1 Gram"
+    };
+    String[] buttonThreeArray = new String[] {
+            "for Christmas",
+            "I keep drifting away",
+            "It's just a shot away. It's just a shot away",
+            "I know this girl",
+            "gotta get with my friends.",
+            "have tons of parties",
+            "chasing pavements",
+            "Thomas Jefferson",
+            "White House",
+            "2003",
+            "dinner",
+            "Peso",
+            "2 Grams"
+    };
+    String[] buttonFourArray = new String[] {
+            "for Halloween",
+            "I feel a little bit safer",
+            "Brother help me please. Brother help me please",
+            "She's just a girl",
+            "gotta fly me to France.",
+            "leave all the memories behind",
+            "chasing dreams",
+            "Jimmy Carter",
+            "Twin Towers",
+            "1996",
+            "deeniro",
+            "United States Dollar",
+            "0.5 Grams"
+    };
+    boolean[] buttonOneAnswer = new boolean[] {
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false
+    };
+    boolean[] buttonTwoAnswer = new boolean[] {
+            false,
+            true,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            true,
+            false,
+            true,
+            false,
+            true
+    };
+    boolean[] buttonThreeAnswer = new boolean[] {
+            true,
+            false,
+            true,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false
+    };
+    boolean[] buttonFourAnswer = new boolean[] {
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +205,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
         buttonC = (Button) findViewById(R.id.buttonC);
         buttonD = (Button) findViewById(R.id.buttonD);
 
-        instruction = (TextView) findViewById(R.id.instruction);          ////////////////
+        instruction = (TextView) findViewById(R.id.instruction);
 
         startButton.setOnClickListener(this);
         buttonA.setOnClickListener(this);
@@ -85,6 +214,23 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
         buttonD.setOnClickListener(this);
 
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
+
+        //Create question arrayList
+        for (int i = 0; i < questionArray.length; i++) {
+            ChallengeQuestion question = new ChallengeQuestion();
+            question.setQuestion(questionArray[i]);
+            question.setButtonOneAnswer(buttonOneArray[i]);
+            question.setButtonOneBoolean(buttonOneAnswer[i]);
+            question.setButtonTwoAnswer(buttonTwoArray[i]);
+            question.setButtonTwoBoolean(buttonTwoAnswer[i]);
+            question.setButtonThreeAnswer(buttonThreeArray[i]);
+            question.setButtonThreeBoolean(buttonThreeAnswer[i]);
+            question.setButtonFourAnswer(buttonFourArray[i]);
+            question.setButtonFourBoolean(buttonFourAnswer[i]);
+            list.add(question);
+        }
+
+        shuffleArray(list);
     }
 
     @Override
@@ -152,7 +298,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
                 break;
             // Check answers; check for end of game or advance question
             case R.id.buttonA:
-                checkAnswer(buttonOneAnswer);
+                checkAnswer(list, "buttonOne");
                 if (phasesExhausted() || questionsExhausted) {
                     endGame();
                     break;
@@ -161,7 +307,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
                 displayNext();
                 break;
             case R.id.buttonB:
-                checkAnswer(buttonTwoAnswer);
+                checkAnswer(list, "buttonTwo");
                 if (phasesExhausted() || questionsExhausted) {
                     endGame();
                     break;
@@ -170,7 +316,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
                 displayNext();
                 break;
             case R.id.buttonC:
-                checkAnswer(buttonThreeAnswer);
+                checkAnswer(list, "buttonThree");
                 if (phasesExhausted() || questionsExhausted) {
                     endGame();
                     break;
@@ -179,7 +325,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
                 displayNext();
                 break;
             case R.id.buttonD:
-                checkAnswer(buttonFourAnswer);
+                checkAnswer(list, "buttonFour");
                 if (phasesExhausted() || questionsExhausted) {
                     endGame();
                     break;
@@ -194,7 +340,7 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
     public void displayStart() {
         // Widget visibility updated
         gameMode.setVisibility(View.INVISIBLE);
-        instruction.setVisibility(View.INVISIBLE);          ////////////////
+        instruction.setVisibility(View.INVISIBLE);
         questionText.setVisibility(View.VISIBLE);
         phaseCountText.setVisibility(View.VISIBLE);
         buttonA.setVisibility(View.VISIBLE);
@@ -202,14 +348,17 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
         buttonC.setVisibility(View.VISIBLE);
         buttonD.setVisibility(View.VISIBLE);
 
+        //randomize array list
+        shuffleArray(list);
+
         // Widget text updated
         startButton.setText("New Game");
-        questionText.setText(questionArray[0]);
+        questionText.setText(list.get(0).getQuestion());
         phaseCountText.setText("Phases Incurred: 0");
-        buttonA.setText(buttonOneArray[0]);
-        buttonB.setText(buttonTwoArray[0]);
-        buttonC.setText(buttonThreeArray[0]);
-        buttonD.setText(buttonFourArray[0]);
+        buttonA.setText(list.get(0).getButtonOneAnswer());
+        buttonB.setText(list.get(0).getButtonTwoAnswer());
+        buttonC.setText(list.get(0).getButtonThreeAnswer());
+        buttonD.setText(list.get(0).getButtonFourAnswer());
 
         //Counters set to default
         resetValues();
@@ -218,25 +367,59 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
     // Present next question
     public void displayNext() {
         // Question, answer options, and phase count display updated
-        questionText.setText(questionArray[arrayValue]);
+        questionText.setText(list.get(arrayValue).getQuestion());
         phaseCountText.setText("Phases Incurred: " + phaseCount);
-        buttonA.setText(buttonOneArray[arrayValue]);
-        buttonB.setText(buttonTwoArray[arrayValue]);
-        buttonC.setText(buttonThreeArray[arrayValue]);
-        buttonD.setText(buttonFourArray[arrayValue]);
+        buttonA.setText(list.get(arrayValue).getButtonOneAnswer());
+        buttonB.setText(list.get(arrayValue).getButtonTwoAnswer());
+        buttonC.setText(list.get(arrayValue).getButtonThreeAnswer());
+        buttonD.setText(list.get(arrayValue).getButtonFourAnswer());
 
         // Question total updated
         qCount++;
     }
 
     // Update game counters
-    public void checkAnswer(boolean[] array) {
+    public void checkAnswer(ArrayList<ChallengeQuestion> array, String string) {
         // Incorrect answer records phase, correct answer adds to correct total
-        if (!array[arrayValue])
-            phaseCount++;
-        else
-            correctQCount++;
-        questionsExhausted(array);
+        switch (string) {
+            case "buttonOne":
+                if (!array.get(arrayValue).isButtonOneBoolean()) {
+                    phaseCount++;
+                    break;
+                }
+                else {
+                    correctQCount++;
+                    break;
+                }
+            case "buttonTwo":
+                if (!array.get(arrayValue).isButtonTwoBoolean()) {
+                    phaseCount++;
+                    break;
+                }
+                else {
+                    correctQCount++;
+                    break;
+                }
+            case "buttonThree":
+                if (!array.get(arrayValue).isButtonThreeBoolean()) {
+                    phaseCount++;
+                    break;
+                }
+                else {
+                    correctQCount++;
+                    break;
+                }
+            case "buttonFour":
+                if (!array.get(arrayValue).isButtonFourBoolean()) {
+                    phaseCount++;
+                    break;
+                }
+                else {
+                    correctQCount++;
+                    break;
+                }
+        }
+        questionsExhausted();
     }
 
     // Check for third phase/strike
@@ -247,8 +430,8 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
     }
 
     // Determine if current question is last in category
-    public void questionsExhausted(boolean[] array) {
-        if (array.length - 1 == arrayValue)
+    public void questionsExhausted() {
+        if (questionArray.length - 1 == arrayValue)
             questionsExhausted = true;
     }
 
@@ -278,5 +461,20 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
         phaseCount = 0;
         correctQCount = 0;
         questionsExhausted = false;
+    }
+
+    //Randomized the question array list
+    private static void shuffleArray(ArrayList<ChallengeQuestion> array)
+    {
+        int index;
+        ChallengeQuestion temp;
+        Random random = new Random();
+        for (int i = array.size() - 1; i > 0; i--)
+        {
+            index = random.nextInt(i + 1);
+            temp = array.get(i);
+            array.set(i, array.get(index));
+            array.set(index, temp);
+        }
     }
 }

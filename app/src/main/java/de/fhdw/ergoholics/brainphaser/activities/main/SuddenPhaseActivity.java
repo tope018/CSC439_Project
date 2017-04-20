@@ -8,7 +8,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import de.fhdw.ergoholics.brainphaser.R;
+import de.fhdw.ergoholics.brainphaser.utility.ChallengeQuestion;
 
 public class SuddenPhaseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -24,20 +28,144 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
     private TextView instruction;
 
     //define questions and answers in separate arrays - will replace with xml parser methods
-    String[] questionArray = new String[]{"Which president is on the United States 1,000 dollar bill?",
+
+    ArrayList<ChallengeQuestion> list = new ArrayList<ChallengeQuestion>();
+
+    String[] questionArray = new String[] {
+            "What more can I do? All I want _________ is you.",
+            "Every Day is a winding road. ________",
+            "If I don't get some shelter, Lord, I'm gonna fade away. War, children ________",
+            "Billie Jean is not my lover. ________ who claims that I am the one.",
+            "If you wanna be my lover you _________ Make it last forever. Friendship never ends.",
+            "Since you been gone, I can ________",
+            "Don't go _________ Just stick to the rivers and the lakes that you're used to",
+            "Which president is on the United States 1,000 dollar bill?",
             "What building is found on the back of the United States 100 dollar bill?",
             "What year was the two dollar bill last printed in the United States?",
             "What is the spanish word for money?",
             "What is the official currency of Equador?",
-            "How much does a United States dollar bill weigh?"};
-    String[] buttonOneArray = new String[] {"Grover Cleveland","Lincoln Memorial","2000","peso","Pound","1.5 Grams"};
-    String[] buttonTwoArray = new String[] {"Abraham Lincoln","Independence Hall","1998","dinero","Euro","1 Gram"};
-    String[] buttonThreeArray = new String[] {"Thomas Jefferson","White House","2003","dinner","Peso","2 Grams"};
-    String[] buttonFourArray = new String[] {"Jimmy Carter","Twin Towers","1996","deeniro","United States Dollar","0.5 Grams"};
-    boolean[] buttonOneAnswer = new boolean[] {true,false,false,false,false,false};
-    boolean[] buttonTwoAnswer = new boolean[] {false,true,false,true,false,true};
-    boolean[] buttonThreeAnswer = new boolean[] {false,false,true,false,false,false};
-    boolean[] buttonFourAnswer = new boolean[] {false,false,false,false,true,false};
+            "How much does a United States dollar bill weigh?"
+    };
+    String[] buttonOneArray = new String[] {
+            "for the spring sale",
+            "It gets a further away",
+            "It's a trap. It's a trap.",
+            "She just don't know",
+            "gotta meet my family",
+            "do whatever I want",
+            "chasing waterfalls",
+            "Grover Cleveland",
+            "Lincoln Memorial",
+            "2000",
+            "peso",
+            "Pound",
+            "1.5 Grams"
+    };
+    String[] buttonTwoArray = new String[] {
+            "for New Year's",
+            "I get a little bit closer",
+            "It's so cold and dark. It's so cold and dark",
+            "She's a cleaning lady",
+            "have to buy me a pizza.",
+            "breathe for the first time",
+            "chasing cars.",
+            "Abraham Lincoln",
+            "Independence Hall",
+            "1998",
+            "dinero",
+            "Euro",
+            "1 Gram"
+    };
+    String[] buttonThreeArray = new String[] {
+            "for Christmas",
+            "I keep drifting away",
+            "It's just a shot away. It's just a shot away",
+            "I know this girl",
+            "gotta get with my friends.",
+            "have tons of parties",
+            "chasing pavements",
+            "Thomas Jefferson",
+            "White House",
+            "2003",
+            "dinner",
+            "Peso",
+            "2 Grams"
+    };
+    String[] buttonFourArray = new String[] {
+            "for Halloween",
+            "I feel a little bit safer",
+            "Brother help me please. Brother help me please",
+            "She's just a girl",
+            "gotta fly me to France.",
+            "leave all the memories behind",
+            "chasing dreams",
+            "Jimmy Carter",
+            "Twin Towers",
+            "1996",
+            "deeniro",
+            "United States Dollar",
+            "0.5 Grams"
+    };
+    boolean[] buttonOneAnswer = new boolean[] {
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false
+    };
+    boolean[] buttonTwoAnswer = new boolean[] {
+            false,
+            true,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            true,
+            false,
+            true,
+            false,
+            true
+    };
+    boolean[] buttonThreeAnswer = new boolean[] {
+            true,
+            false,
+            true,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false
+    };
+    boolean[] buttonFourAnswer = new boolean[] {
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false
+    };
     int arrayValue = 0;
     boolean playerOneBoolean = true;
 
@@ -68,7 +196,6 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
         questionText = (TextView) findViewById(R.id.questionText);
         startButton = (Button) findViewById(R.id.startButton);
         titleText = (TextView) findViewById(R.id.title);
-
         instruction = (TextView) findViewById(R.id.instruction);
 
         //set onClick listener for buttons
@@ -80,6 +207,24 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
 
         //get SharedPreferences object
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
+
+        //Create question arrayList
+        for (int i = 0; i < questionArray.length; i++) {
+            ChallengeQuestion question = new ChallengeQuestion();
+            question.setQuestion(questionArray[i]);
+            question.setButtonOneAnswer(buttonOneArray[i]);
+            question.setButtonOneBoolean(buttonOneAnswer[i]);
+            question.setButtonTwoAnswer(buttonTwoArray[i]);
+            question.setButtonTwoBoolean(buttonTwoAnswer[i]);
+            question.setButtonThreeAnswer(buttonThreeArray[i]);
+            question.setButtonThreeBoolean(buttonThreeAnswer[i]);
+            question.setButtonFourAnswer(buttonFourArray[i]);
+            question.setButtonFourBoolean(buttonFourAnswer[i]);
+            list.add(question);
+        }
+
+        shuffleArray(list);
+
     }
 
     @Override
@@ -141,25 +286,25 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
                 displayStart();
                 break;
             case R.id.buttonOne:
-                if(checkAnswer(buttonOneAnswer))
+                if(checkAnswer(list, "buttonOne"))
                     break;
                 arrayValue++;
                 displayNext();
                 break;
             case R.id.buttonTwo:
-                if(checkAnswer(buttonTwoAnswer))
+                if(checkAnswer(list, "buttonTwo"))
                     break;
                 arrayValue++;
                 displayNext();
                 break;
             case R.id.buttonThree:
-                if(checkAnswer(buttonThreeAnswer))
+                if(checkAnswer(list, "buttonThree"))
                     break;
                 arrayValue++;
                 displayNext();
                 break;
             case R.id.buttonFour:
-                if(checkAnswer(buttonFourAnswer))
+                if(checkAnswer(list, "buttonFour"))
                     break;
                 arrayValue++;
                 displayNext();
@@ -167,7 +312,9 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
         }
     }
 
+    //set layout for a new game of sudden phase
     public void displayStart() {
+        //set visibility of buttons
         buttonOne.setVisibility(View.VISIBLE);
         buttonTwo.setVisibility(View.VISIBLE);
         buttonThree.setVisibility(View.VISIBLE);
@@ -176,49 +323,115 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
         questionText.setVisibility(View.VISIBLE);
         instruction.setVisibility(View.INVISIBLE);
         titleText.setVisibility(View.INVISIBLE);
-        buttonOne.setText(buttonOneArray[0]);
-        buttonTwo.setText(buttonTwoArray[0]);
-        buttonThree.setText(buttonThreeArray[0]);
-        buttonFour.setText(buttonFourArray[0]);
-        questionText.setText(questionArray[0]);
+
+        //randomize array list
+        shuffleArray(list);
+
+        //set buttons to first question
+        buttonOne.setText(list.get(0).getButtonOneAnswer());
+        buttonTwo.setText(list.get(0).getButtonTwoAnswer());
+        buttonThree.setText(list.get(0).getButtonThreeAnswer());
+        buttonFour.setText(list.get(0).getButtonFourAnswer());
+        questionText.setText(list.get(0).getQuestion());
         playerTurnText.setText("Player One's Turn");
         arrayValue = 0;
         playerOneBoolean = true;
         startButton.setText("New Game");
     }
 
+    //display the next question
     public void displayNext() {
-        buttonOne.setText(buttonOneArray[arrayValue]);
-        buttonTwo.setText(buttonTwoArray[arrayValue]);
-        buttonThree.setText(buttonThreeArray[arrayValue]);
-        buttonFour.setText(buttonFourArray[arrayValue]);
-        questionText.setText(questionArray[arrayValue]);
+        buttonOne.setText(list.get(arrayValue).getButtonOneAnswer());
+        buttonTwo.setText(list.get(arrayValue).getButtonTwoAnswer());
+        buttonThree.setText(list.get(arrayValue).getButtonThreeAnswer());
+        buttonFour.setText(list.get(arrayValue).getButtonFourAnswer());
+        questionText.setText(list.get(arrayValue).getQuestion());
         if(playerOneBoolean)
             playerTurnText.setText("Player One's Turn");
         else
             playerTurnText.setText("Player Two's Turn");
     }
 
-    public boolean checkAnswer(boolean[] array) {
-        if (!array[arrayValue]) {
-            displayWinner(playerOneBoolean);
-            return true;
+    //check if answer is correct, incorrect, or game ended in a tie
+    public boolean checkAnswer(ArrayList<ChallengeQuestion> array, String string) {
+        switch (string) {
+            case "buttonOne":
+                if (!array.get(arrayValue).isButtonOneBoolean()) {
+                    displayWinner(playerOneBoolean);
+                    return true;
+                } else if (checkForTie()) {
+                    playerTurnText.setText("Tie!!!");
+                    buttonOne.setVisibility(View.INVISIBLE);
+                    buttonTwo.setVisibility(View.INVISIBLE);
+                    buttonThree.setVisibility(View.INVISIBLE);
+                    buttonFour.setVisibility(View.INVISIBLE);
+                    playerTurnText.setVisibility(View.VISIBLE);
+                    questionText.setVisibility(View.INVISIBLE);
+                    titleText.setVisibility(View.INVISIBLE);
+                    return true;
+                } else {
+                    playerOneBoolean = !playerOneBoolean;
+                    return false;
+                }
+            case "buttonTwo":
+                if (!array.get(arrayValue).isButtonTwoBoolean()) {
+                    displayWinner(playerOneBoolean);
+                    return true;
+                } else if (checkForTie()) {
+                    playerTurnText.setText("Tie!!!");
+                    buttonOne.setVisibility(View.INVISIBLE);
+                    buttonTwo.setVisibility(View.INVISIBLE);
+                    buttonThree.setVisibility(View.INVISIBLE);
+                    buttonFour.setVisibility(View.INVISIBLE);
+                    playerTurnText.setVisibility(View.VISIBLE);
+                    questionText.setVisibility(View.INVISIBLE);
+                    titleText.setVisibility(View.INVISIBLE);
+                    return true;
+                } else {
+                    playerOneBoolean = !playerOneBoolean;
+                    return false;
+                }
+            case "buttonThree":
+                if (!array.get(arrayValue).isButtonThreeBoolean()) {
+                    displayWinner(playerOneBoolean);
+                    return true;
+                } else if (checkForTie()) {
+                    playerTurnText.setText("Tie!!!");
+                    buttonOne.setVisibility(View.INVISIBLE);
+                    buttonTwo.setVisibility(View.INVISIBLE);
+                    buttonThree.setVisibility(View.INVISIBLE);
+                    buttonFour.setVisibility(View.INVISIBLE);
+                    playerTurnText.setVisibility(View.VISIBLE);
+                    questionText.setVisibility(View.INVISIBLE);
+                    titleText.setVisibility(View.INVISIBLE);
+                    return true;
+                } else {
+                    playerOneBoolean = !playerOneBoolean;
+                    return false;
+                }
+            case "buttonFour":
+                if (!array.get(arrayValue).isButtonFourBoolean()) {
+                    displayWinner(playerOneBoolean);
+                    return true;
+                } else if (checkForTie()) {
+                    playerTurnText.setText("Tie!!!");
+                    buttonOne.setVisibility(View.INVISIBLE);
+                    buttonTwo.setVisibility(View.INVISIBLE);
+                    buttonThree.setVisibility(View.INVISIBLE);
+                    buttonFour.setVisibility(View.INVISIBLE);
+                    playerTurnText.setVisibility(View.VISIBLE);
+                    questionText.setVisibility(View.INVISIBLE);
+                    titleText.setVisibility(View.INVISIBLE);
+                    return true;
+                } else {
+                    playerOneBoolean = !playerOneBoolean;
+                    return false;
+                }
         }
-        else if (checkForTie(array)) {
-            playerTurnText.setText("Tie!!!");
-            buttonOne.setVisibility(View.INVISIBLE);
-            buttonTwo.setVisibility(View.INVISIBLE);
-            buttonThree.setVisibility(View.INVISIBLE);
-            buttonFour.setVisibility(View.INVISIBLE);
-            playerTurnText.setVisibility(View.VISIBLE);
-            questionText.setVisibility(View.INVISIBLE);
-            titleText.setVisibility(View.INVISIBLE);
-            return true;
-        }
-        playerOneBoolean = !playerOneBoolean;
         return false;
     }
 
+    //ends the game and displays the winner
     public void displayWinner(boolean player) {
         if (!playerOneBoolean) {
             playerTurnText.setText("Player One Wins!!!");
@@ -234,8 +447,23 @@ public class SuddenPhaseActivity extends AppCompatActivity implements AdapterVie
         titleText.setVisibility(View.INVISIBLE);
     }
 
-    public boolean checkForTie(boolean[] array) {
-        return array.length - 1 == arrayValue;
+    public boolean checkForTie() {
+        return questionArray.length - 1 == arrayValue;
+    }
+
+    //Randomized the question array list
+    private static void shuffleArray(ArrayList<ChallengeQuestion> array)
+    {
+        int index;
+        ChallengeQuestion temp;
+        Random random = new Random();
+        for (int i = array.size() - 1; i > 0; i--)
+        {
+            index = random.nextInt(i + 1);
+            temp = array.get(i);
+            array.set(i, array.get(index));
+            array.set(index, temp);
+        }
     }
 
 }
