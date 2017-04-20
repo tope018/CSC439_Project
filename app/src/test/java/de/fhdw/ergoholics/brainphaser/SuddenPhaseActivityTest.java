@@ -2,7 +2,10 @@ package de.fhdw.ergoholics.brainphaser;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import de.fhdw.ergoholics.brainphaser.activities.main.SuddenPhaseActivity;
+import de.fhdw.ergoholics.brainphaser.utility.ChallengeQuestion;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -15,8 +18,12 @@ public class SuddenPhaseActivityTest extends SuddenPhaseActivity {
 
     @Test
     public void testCheckAnswer() throws Exception {
-        boolean[] testArrayForFalse = new boolean[] {true, true};
-        boolean rtnValue = checkAnswer(testArrayForFalse);
+        ArrayList<ChallengeQuestion> array = new ArrayList<ChallengeQuestion>();
+        ChallengeQuestion question = new ChallengeQuestion();
+        question.setButtonOneBoolean(true);
+        int arrayValue = 0;
+        array.add(question);
+        boolean rtnValue = checkAnswer(array, "buttonOne"); //should return false
         assertFalse(rtnValue);
     }
 
@@ -24,9 +31,7 @@ public class SuddenPhaseActivityTest extends SuddenPhaseActivity {
     public void testCheckForTie() throws Exception {
         boolean[] testArrayForFalse = new boolean[] {true, true};
         boolean[] testArrayForTrue = new boolean[] {false};
-        boolean rtnValue = checkForTie(testArrayForFalse);
+        boolean rtnValue = checkForTie();
         assertFalse(rtnValue);
-        rtnValue = checkForTie(testArrayForTrue);
-        assertTrue(rtnValue);
     }
 }
