@@ -29,8 +29,6 @@ public class SuddenPhaseActivityTest extends SuddenPhaseActivity {
 
     @Test
     public void testCheckForTie() throws Exception {
-        boolean[] testArrayForFalse = new boolean[] {true, true};
-        boolean[] testArrayForTrue = new boolean[] {false};
         boolean rtnValue = checkForTie();
         assertFalse(rtnValue);
     }
