@@ -68,7 +68,16 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             "What year was the two dollar bill last printed in the United States?",
             "What is the spanish word for money?",
             "What is the official currency of Equador?",
-            "How much does a United States dollar bill weigh?"
+            "How much does a United States dollar bill weigh?",
+            "The city of Constantinople fell to the Ottoman Turks in ____.",
+            "The Khmer Rouge regime ruled _______ following a national coup in 1970.",
+            "Modern-day Pakistan was a province of what nation until 1945?",
+            "Which American musician won the Nobel Prize for Literature in 2016?",
+            "Which F. Scott Fitzgerald novel features the quote 'I know myself, but that is all'?",
+            "The novel Catch-22 is set during which military conflict?",
+            "This television series was the most-watched ever, having been viewed by more than 60% of U.S. households.",
+            "The long-running series Doctor Who features a time-traveling alien from what planet?",
+            "In 2012, Guinness World Records named which character 'the most portrayed human character in film and television'?"
     };
     String[] buttonOneArray = new String[] {
             "for the spring sale",
@@ -83,7 +92,16 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             "2000",
             "peso",
             "Pound",
-            "1.5 Grams"
+            "1.5 Grams",
+            "1788",
+            "Vietnam",
+            "Afghanistan",
+            "James Taylor",
+            "This Side of Paradise",
+            "War of 1812",
+            "Frasier",
+            "Skaro",
+            "James Bond"
     };
     String[] buttonTwoArray = new String[] {
             "for New Year's",
@@ -98,7 +116,16 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             "1998",
             "dinero",
             "Euro",
-            "1 Gram"
+            "1 Gram",
+            "1453",
+            "Cambodia",
+            "Sri Lanka",
+            "Stevie Ray Vaughan",
+            "The Great Gatsby",
+            "World War II",
+            "Friends",
+            "Earth-2",
+            "Sherlock Holmes"
     };
     String[] buttonThreeArray = new String[] {
             "for Christmas",
@@ -113,7 +140,16 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             "2003",
             "dinner",
             "Peso",
-            "2 Grams"
+            "2 Grams",
+            "410",
+            "The Phillipines",
+            "India",
+            "Tom Waits",
+            "The Beautiful & Damned",
+            "Vietnam War",
+            "M.A.S.H.",
+            "Magellan",
+            "Hamlet"
     };
     String[] buttonFourArray = new String[] {
             "for Halloween",
@@ -128,7 +164,16 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             "1996",
             "deeniro",
             "United States Dollar",
-            "0.5 Grams"
+            "0.5 Grams",
+            "1301",
+            "Korea",
+            "Iran",
+            "Bob Dylan",
+            "The Last Tycoon",
+            "Korean War",
+            "Cheers",
+            "Gallifrey",
+            "Batman"
     };
     boolean[] buttonOneAnswer = new boolean[] {
             false,
@@ -140,6 +185,15 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             true,
             true,
             false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
             false,
             false,
             false,
@@ -158,6 +212,15 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             false,
             true,
             false,
+            true,
+            true,
+            true,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
             true
     };
     boolean[] buttonThreeAnswer = new boolean[] {
@@ -173,6 +236,15 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             true,
             false,
             false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            true,
+            false,
             false
     };
     boolean[] buttonFourAnswer = new boolean[] {
@@ -184,6 +256,15 @@ public class PhaseoutActivity extends AppCompatActivity implements AdapterView.O
             false,
             false,
             false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            true,
             false,
             false,
             false,
